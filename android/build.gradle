@@ -24,14 +24,19 @@ apply plugin: 'com.android.library'
 android {
     namespace 'com.example.flutternativeimage'
     
-    compileSdkVersion 28
+    compileSdkVersion 35
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
         disable 'InvalidPackage'
         abortOnError false
     }
+}
+
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+    project.evaluationDependsOn(':app')
 }
