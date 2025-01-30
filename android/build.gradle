@@ -24,7 +24,7 @@ apply plugin: 'com.android.library'
 android {
     namespace 'com.example.flutternativeimage'
     
-    compileSdkVersion 35
+    compileSdkVersion 34
 
     defaultConfig {
         minSdkVersion 21
@@ -33,6 +33,27 @@ android {
     lintOptions {
         disable 'InvalidPackage'
         abortOnError false
+    }
+}
+
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty("android")) {
+            project.android {
+                compileSdkVersion 34
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_1_8
+                    targetCompatibility JavaVersion.VERSION_1_8
+                    //compileSdkVersion 34
+                }
+            }
+ 
+            project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+                kotlinOptions {
+                    jvmTarget = "1.8"
+                }
+            }
+        }
     }
 }
 
